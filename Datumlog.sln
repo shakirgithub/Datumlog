@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datumlog", "Datumlog\Datuml
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datumlog.Tests", "Datumlog.Tests\Datumlog.Tests.csproj", "{FF4823DA-C1E1-4605-8168-E63DABCC4083}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components", "Components\Components.csproj", "{2FDF0A22-EB89-4F6D-A162-DD794D39A6DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FF4823DA-C1E1-4605-8168-E63DABCC4083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF4823DA-C1E1-4605-8168-E63DABCC4083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF4823DA-C1E1-4605-8168-E63DABCC4083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FDF0A22-EB89-4F6D-A162-DD794D39A6DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FDF0A22-EB89-4F6D-A162-DD794D39A6DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FDF0A22-EB89-4F6D-A162-DD794D39A6DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FDF0A22-EB89-4F6D-A162-DD794D39A6DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
