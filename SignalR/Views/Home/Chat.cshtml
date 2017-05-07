@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+}
+<style>
+    #discussion {
+        margin-top: 80px;
+    }
+
+        #discussion li {
+            list-style-type: none;
+            padding: 12px;
+            background-color: #2ECC71;
+            color: #fff;
+            margin: 5px;
+        }
+    #hints {
+    margin-bottom:40px;
+    color:#0094ff;
+    }
+    #message{
+        font-style:italic;color:#0094ff;
+        width:450px;
+    }
+
+    @@media (max-width:400px) {
+    #message {
+          width:108px;
+    }}
+</style>
+
+<div id="hints">
+    <h4>Send Messages in Group.</h4>
+    <small>
+        <i>
+            Hints:   Open this page on multiple browsers, enter different display names and send messages across browsers.
+            you will see a live chat without loading or refreshing page.
+        </i>
+    </small>
+</div>
+
+
+
+<div class="container">
+    <div style="max-width: 250px; float: left; margin-right: 20px;margin-left:42px" ><input type="text" id="message" class="form-control" placeholder="Write your message here"  /></div> 
+    <button type="button" id="sendmessage"  class="btn btn-success" style="float:left;" title="Send"  >
+        <i class="glyphicon glyphicon-send"></i>
+        </button>
+    <input type="hidden" id="displayname" />
+    <ul id="discussion"> 
+    </ul>
+
+</div>
+
+@section scripts{
+
+<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+    <script>
+    $(function(){
+    //Create connection with chatHub class 
+    var chat = $.connection.chatHub;
+        // create a function that can be used by addMessageToPage defined chatHub
+        //to call back to this function. the request is sending from C# to jquery code. 
+    chat.client.addMessageToPage = function (name, message) {
+        var currentdate = new Date();
+        var time = currentdate.getDate() + "/"
+                + (currentdate.getMonth() + 1) + "/"
+                + currentdate.getFullYear() + " - "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+            //dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+        // append message to ul
+        $("#discussion").append("<li><strong>" + htmlEncode(name) + ":</strong> " + htmlEncode(message) + " <small style='float:right;color:#0094ff'> " + time + "</small></li>");
+
+    };
+        //get user name from user and add to hidden textbox.
+    $("#displayname").val(prompt('Enter User Name', ''));
+        //set focus to the message text box.
+    $("#message").focus();
+        //Start the connection. 
+    $.connection.hub.start().done(function () {
+        $("#sendmessage").click(function () {
+            // if send message is clicked then call the Send message on the hub.
+            chat.server.send($("#displayname").val().toUpperCase(), $("#message").val());
+            // clear the message text 
+            $("#message").val('').focus();
+
+        });
+    });
+
+    })
+        // display html function 
+    function htmlEncode(value) {
+        var encodedValue = $("<div />").text(value).html();
+        return encodedValue;
+    }
+    $('#message').keypress(function (e) {
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+            $('#sendmessage').click();
+            return false;
+        }
+    });
+    </script>
+    }
+
